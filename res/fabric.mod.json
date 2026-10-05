@@ -1,0 +1,16 @@
+{
+  "schemaVersion": 1,
+  "id": "testosterone_chunkfix",
+  "version": "1.0.0",
+  "name": "Testosterone Chunk Leak Fix",
+  "description": "Stops Create: Testosterone 2.0.3's fluid effect handler from keeping chunks loaded forever. Server-side only.",
+  "authors": ["WinterHealer"],
+  "license": "GPL-3.0-only",
+  "environment": "*",
+  "mixins": ["testofix.mixins.json"],
+  "depends": {
+    "fabricloader": ">=0.14.0",
+    "minecraft": "1.20.1",
+    "testosterone": "2.0.3"
+  }
+}

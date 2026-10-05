@@ -1,0 +1,12 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "dev.winterhealer.testofix.mixin",
+  "compatibilityLevel": "JAVA_17",
+  "mixins": [
+    "FluidEffectHandlerMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}
