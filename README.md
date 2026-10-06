@@ -54,9 +54,10 @@ You can check a downloaded jar in any of these ways:
 `./build.sh` (needs a JDK, 17+; use JDK 21 to get the exact same jar as the release).
 
 ## Releasing
-Bump `version` in `res/fabric.mod.json`, commit, then push a
-matching tag, e.g. `git tag v1.0.0 && git push origin v1.0.0`. The workflow builds the jar,
-attests it and creates the release with the jar and its `.sha256` file.
+Bump `version` in `res/fabric.mod.json` and commit. Then either push a matching tag
+(`git tag v1.0.0 && git push origin v1.0.0`) or, on github.com, go to **Releases → Draft a new release**,
+type the tag (e.g. `v1.0.0`), choose "Create new tag on publish" on `main` and publish. Either way the
+workflow builds the jar, attests it and attaches the jar and its `.sha256` file to the release.
 
 ## Test
 `test/run.sh /path/to/testosterone-2.0.3.jar` applies the fix with Fabric's real Mixin library
