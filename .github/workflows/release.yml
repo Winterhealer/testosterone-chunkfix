@@ -1,6 +1,6 @@
 # Builds the jar on GitHub's runners and publishes it on a Release with a SHA-256 checksum and a
-# signed build-provenance attestation. Nothing is uploaded by hand: push a tag to release.
-#   git tag v1.0.0 && git push origin v1.0.0
+# signed build-provenance attestation. Nothing is uploaded by hand. Release by pushing a tag
+# (git tag v1.0.0 && git push origin v1.0.0) or by publishing a release with a new tag on github.com.
 name: Release
 
 on:
@@ -58,5 +58,11 @@ jobs:
           gh attestation verify $(basename "$jar") --repo ${GITHUB_REPOSITORY}
           \`\`\`
           NOTES
-          gh release create "${GITHUB_REF_NAME}" "$jar" "$jar.sha256" \
-            --repo "${GITHUB_REPOSITORY}" --title "${GITHUB_REF_NAME}" --notes-file notes.md
+          # The release may already exist if it was created on github.com (which also creates the tag).
+          if gh release view "${GITHUB_REF_NAME}" --repo "${GITHUB_REPOSITORY}" >/dev/null 2>&1; then
+            gh release upload "${GITHUB_REF_NAME}" "$jar" "$jar.sha256" --repo "${GITHUB_REPOSITORY}" --clobber
+            gh release edit "${GITHUB_REF_NAME}" --repo "${GITHUB_REPOSITORY}" --notes-file notes.md
+          else
+            gh release create "${GITHUB_REF_NAME}" "$jar" "$jar.sha256" \
+              --repo "${GITHUB_REPOSITORY}" --title "${GITHUB_REF_NAME}" --notes-file notes.md
+          fi
