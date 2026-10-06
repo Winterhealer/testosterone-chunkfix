@@ -6,7 +6,7 @@
 set -euo pipefail
 cd "$(dirname "$0")"
 TESTO="$(realpath "${1:?usage: ./run.sh /path/to/testosterone-2.0.3.jar}")"
-FIX="$(realpath ../dist/testosterone-chunkfix-1.0.0.jar)"
+FIX="$(realpath ../dist/testosterone-chunkfix-*.jar)"  # run ../build.sh first
 MIXIN=0.17.4+mixin.0.8.7 ASM=9.8
 
 mkdir -p lib

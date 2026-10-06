@@ -28,14 +28,35 @@ A mixin injects at the head of `fluidEffectHandler.applyPotionEffect` and skips 
 gameplay is unchanged: the effect still applies to anything actually standing in the fluid.
 
 ## Install
-- Build it (see below), then drop `dist/testosterone-chunkfix-1.0.0.jar` into the **server's** `mods/` folder. Clients do not need it
+- Download `testosterone-chunkfix-1.0.0.jar` from the [Releases](../../releases) page (or build it,
+  see below) and drop it into the **server's** `mods/` folder. Clients do not need it
   (it is harmless if present; it also fixes singleplayer worlds).
 - It requires exactly Testosterone `2.0.3`. If Testosterone is updated, Fabric will refuse to start
   with a dependency message, so check whether the new version still has the bug before bumping
   the version in `res/fabric.mod.json`.
 
+## Verifying a download
+Release jars are built by GitHub Actions from this repository's source
+([`.github/workflows/release.yml`](.github/workflows/release.yml)); nothing is uploaded by hand.
+You can check a downloaded jar in any of these ways:
+
+1. **Build provenance** (strongest): with the [GitHub CLI](https://cli.github.com/), run
+   `gh attestation verify testosterone-chunkfix-1.0.0.jar --repo Winterhealer/testosterone-chunkfix`.
+   It confirms the file was built by this repository's release workflow, and from which commit.
+2. **Checksum**: compare `sha256sum testosterone-chunkfix-1.0.0.jar` (or
+   `Get-FileHash testosterone-chunkfix-1.0.0.jar` on Windows) with the SHA-256 in the release notes.
+3. **Build it yourself**: the build is reproducible, so `./build.sh` with JDK 21 produces a
+   byte-identical jar with the same SHA-256.
+4. **Look inside**: it is a ~2 KB zip with only `fabric.mod.json`, `testofix.mixins.json` and one
+   small class, `FluidEffectHandlerMixin.class`, compiled from `src/`.
+
 ## Build
-`./build.sh` (needs JDK 17+ only).
+`./build.sh` (needs a JDK, 17+; use JDK 21 to get the exact same jar as the release).
+
+## Releasing
+Bump `version` in `res/fabric.mod.json`, commit, then push a
+matching tag, e.g. `git tag v1.0.0 && git push origin v1.0.0`. The workflow builds the jar,
+attests it and creates the release with the jar and its `.sha256` file.
 
 ## Test
 `test/run.sh /path/to/testosterone-2.0.3.jar` applies the fix with Fabric's real Mixin library
