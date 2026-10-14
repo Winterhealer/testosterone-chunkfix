@@ -3,8 +3,14 @@
 A small Fabric mod for Minecraft 1.20.1 that fixes a chunk leak in **Create: Testosterone 2.0.3**
 (by mifort and JonMyDude).
 
-> **Unofficial, temporary fix.** Remove it once Testosterone fixes this upstream. It only targets
-> Testosterone 2.0.3. Related report: [ProminenceII-HasturianEra#610](https://github.com/nvb-uy/ProminenceII-HasturianEra/issues/610)
+> **Fixed upstream in Testosterone 2.0.4.** The Testosterone author added the same check in
+> [`7c7da49`](https://github.com/mifort-github/createTestosterone/commit/7c7da49c2113c3dffa169844823c51364908a7ee)
+> ("ticking entity bug fix"). If you can update Testosterone to **2.0.4 or newer, do that and remove
+> this mod**; it is no longer needed. Fabric will refuse to start with this mod and Testosterone 2.0.4
+> installed together, because this mod only targets 2.0.3.
+>
+> This mod is only useful if you have to stay on Testosterone 2.0.3. Related report:
+> [ProminenceII-HasturianEra#610](https://github.com/nvb-uy/ProminenceII-HasturianEra/issues/610)
 > (hostile mobs gradually stop spawning: frozen mobs in leaked chunks fill the mob cap).
 
 ## The bug
